@@ -1,0 +1,27 @@
+
+name: Linux Health Check CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Check Bash Syntax
+        run: bash -n healthcheck.sh
+
+      - name: Check Script Permission
+        run: test -x healthcheck.sh
+
+      - name: Run Health Check
+        run: bash healthcheck.sh
